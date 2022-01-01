@@ -6,136 +6,112 @@ import random
 import copy
 
 # init data
-u5_dict = {'我们可以发现好多严重问题': 'we can identify a number of serious problems',
-           '使人类丧失创造力，社会关系毫无人情味': 'eclipse human creativity and dehumanize social relations',
-           '全球不平等会扼杀市场和资本主义的增长': 'Global inequality contributes to stifling the growth of markets and of capitalism',
-           '在追求利润的过程中变得越来越冷漠无情和毫无道德': 'becomes increasingly soulless and unethical in its pursuit of profit',
-           '认同全球消费资本主义的价值观': 'embrace the values of global consumer capitalism',
-           '世界上存在强烈的同质化倾向': 'the existence of powerful homogenizing tendencies in the world',
-           '重振地方文化特色': 'reinvigorate local cultural niches',
-           '并非不可兼容': 'are not necessarily incompatible',
-           '身份认同感较不稳定': 'a less stable sense of identity',
-           '世界文化流动的复杂性': 'the complexity of global cultural flows'}
-u6_dict = {
-    '跨国界污染是对我们集体生存的另一个严重威胁': 'Transboundary pollution represents another grave danger to our collective survival',
-    '导致国际社会协调一致共同努力': 'resulted in a coordinated international effort',
-    '至少是临界水平的两倍': 'at least twice as high as the critical level',
-    '人类引发的气候变化问题出现了': 'the issue of human-induced climate change has emerged',
-    '发布了一份关于......的报告，报告内容详尽全面，令人震惊': 'released a comprehensive and alarming report on',
-    '全球气温的显著上升已经导致了.....': 'These significant increases in global temperatures have been leading to',
-    '导致全球海平面上升了22英尺': 'result in a global rise of sea levels of 22 feet',
-    '威胁地球海洋健康的唯一严重问题': 'the only serious problems threatening the health of our planet\'s oceans',
-    '对地球的海洋环境造成了毁灭性的影响': 'have had a devastating impact on Earth\'s marine environments',
-    '所有这些潜在的灾难性环境问题的主要特征': 'The central feature of all these potentially disastrous environmental problems'}
-u7_dict = {'源源不断地向它们的读者灌输市场全球主义的主张': 'feed their readers a steady diet of market-globalist claims',
-           '只要说得出名字，他们就有能力生产出来': 'have the capacity to produce what they name',
-           '经常出现在......': 'occur with great regularity in',
-           '兜售其政治经济议题': 'to sell their political and economic agenda',
-           '植根于自我监管市场的理念': 'is anchored in the idea of the self-regulating market',
-           '促进个人自由与物质进步': 'further individual liberty and material progress',
-           '利用政府的权力来削弱和消除那些限制市场的社会政策和制度': 'utilize the powers of government to weaken and eliminate those social '
-                                          'policies and institutions that curtail the market',
-           '能胜任这个艰巨的任务': 'up to this ambitious task',
-           '与......形成鲜明的对比': 'stand in stark contrast to',
-           '发挥极其积极的作用': 'play an extremely active role'}
-u8_dict = {'违反国际法': 'in violation of international law',
-           '全球金融危机的持续影响': 'the lingering effects of the Global Financial Crisis',
-           '超出...的能力所及': 'beyond the reach of',
-           '阻止甚至扭转先前的全球化趋势': 'stopping and even reversing previous globalization trends',
-           '国际贸易的快速增长与资本的大量流动': 'the rapid growth of international trade, and a huge flow of capital',
-           '在全球传播其政治制度与文化价值观念': 'spread its political system and cultural values across the globe',
-           '这些社会变革进程必须得有一个道德和伦理上的指引': 'these transformative social processes must have a moral compass and an ethical '
-                                      'polestar',
-           '保护普遍的人权而不毁坏人类进化的命脉：文化多样性': 'protects universal human rights without destroying the cultural diversity '
-                                       'that is the lifeblood of human evolution'}
-u5keys = [key for key in u5_dict.keys()]
-u6keys = [key for key in u6_dict.keys()]
-u7keys = [key for key in u7_dict.keys()]
-u8keys = [key for key in u8_dict.keys()]
+gainian_dict = {'积极防御': '是以积极的攻势行动，战胜进攻之敌的防御，亦称攻势防御、决战防御',
+                '人民防空动员': '是指国家战时发动和组织人民群众防备敌人空袭所采取的措施，也可简称为人防动员，有的国家称为民防动员',
+                '人民战争': '是被压迫阶级和被压迫民族为谋求自身的解放，发动和依靠广大人民群众所进行的战争',
+                '人民战争的正义性': '是指战争的政治目的是符合被压迫阶级和被压迫民族根本利益的，是推动历史前进和社会进步的',
+                '人民战争的群众性': '是指参加战争活动的人员较广泛，只要进行战争，各方都需要投入大量的人力、物力、财力',
+                '国防': '是国家为防备和抵抗侵略，制止武装倾覆，保卫国家的主权、统一、领土完整和安全所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动',
+                '国际战略力量': '是指在国际关系中能够独立地发挥作用，并对国际形势及国际战略的运用和发展具有巨大影响的国家或国家集团。',
+                '两极格局': '即两大战略力量之间的相互对立和相互斗争，对整个国际事务起着决定性影响的局面',
+                '信息化作战平台': '是指采用信息技术研制或改造的，供武器装备执行作战任务的处所、载体或者器具的总称',
+                '综合电子信息系统': '是按军队信息系统一体化原则和综合集成技术而构建的具有多种使命、多种功能的信息系统，是在战争中夺取信息优势、决策优势和全维优势的主要装备',
+                '制导炸弹': '是指投放后能对其弹道进行控制并导向目标的航空炸弹，它是在普通航空炸弹的基础上增加制导装置而成的'}
+jianda_dict = {'军事科学的功能': '为国家制定军事战略提供理论依据 为国家规划武装力量建设提供理论依据 为国家发展武器技术装备进行科学论证 为国家准备与实施战争提供理论依据',
+               '大学生学习军事科学的意义': '大学生参加军事训练、学习军事科学是法定的公民义务，责无旁贷 大学生参加军事训练、学习军事科学有利于提高全民国防意识，振奋民族精神 '
+                               '大学生参加军事训练、学习军事科学有利于加强国防后备力量建设 大学生参加军事训练、学习军事科学有利于培养德、智、体全面发展的“四有”新人',
+               '现代国防的基本特征': '现代国防的概念内涵更丰富 现代国防是多种手段、多种斗争形式的角逐 现代国防是综合国力的较量 现代国防与国家经济建设关系更密切',
+               '国防动员的意义': '动员是增强国防实力的重要措施 动员是增强国防威慑力的有效手段 动员是争取战争主动权的可靠保障',
+               '国防动员的内容': '武装力量动员 国民经济动员 科学技术动员 人民防空动员 政治动员',
+               '毛泽东军事思想的科学体系': '战争观与方法论 人民军队思想 人民战争思想 战略战术思想 国防建设思想',
+               '毛泽东人民战争思想的基本理论观点': '战争的正义性是实行人民战争的政治基础 革命战争是群众的战争 人民群众是战争伟力之最深厚根源 兵民是胜利之本 人是战争胜负的决定因素',
+               '信息化战争的主要特征': '武器装备的高度信息化 战争能量释放形态的信息主导化 战场空间的多维一体化 信息系统成为作战双方的主要打击目标 制信息权成为战场争夺的核心和基础 '
+                             '基于网络信息体系的联合作战能力成为战斗力的基本形态 软杀伤与硬摧毁有机结合成为作战的普遍法则',
+               '信息化陆上作战平台对作战的影响': '军队机动作战能力增强 陆军纵深攻击能力增大 战斗指挥和协同复杂 作战的非线性特征明显',
+               '军队指挥控制系统的功能': '迅速收集和处理情报 自动查找和提取情报 辅助参谋人员拟制军事文书 实时观察战场情况 对武器进行自动控制 提高后勤指挥效率',
+               '制导技术的种类': '自主式制导 寻的制导 遥控制导 复合制导',
+               '精确制导武器的主要种类': '导弹 制导炸弹 制导炮弹 制导地雷 制导鱼雷'}
+lunshu_dict = {'历史唯物主义的方法论': '研究和指导战争必须认识战争规律 研究和指导战争必须着眼其特点，着眼其发展 研究和指导战争，要关照全局，把握关节 研究和指导战争，要使主观指导符合客观实际',
+               '国际战略格局演变的动因与过程': '国际战略格局的演变，从根本上说，是决定这种格局的国际战略力量及其相互关系的重大改变 国际战略格局的演变，是内外部因素共同作用的结果 '
+                                 '国际战略格局演变的过程反映了国际战略力量之间的矛盾和斗争的发展过程',
+               '国际战略格局演变的规律性特点': '国际战略格局演变的必然性和偶然性关系 国际战略格局演变的量变到质变过程 国际战略格局演变的渐变和突变方式', }
+gainian_keys = [key for key in gainian_dict.keys()]
+jianda_keys = [key for key in jianda_dict.keys()]
+lunshu_keys = [key for key in lunshu_dict.keys()]
 keys = []
-for key in u5_dict.keys():
+for key in gainian_dict.keys():
     keys.append(key)
-for key in u6_dict.keys():
+for key in jianda_dict.keys():
     keys.append(key)
-for key in u7_dict.keys():
-    keys.append(key)
-for key in u8_dict.keys():
+for key in lunshu_dict.keys():
     keys.append(key)
 keys = copy.deepcopy(keys)
 random.shuffle(keys)
-u5idx, u6idx, u7idx, u8idx, idx = 0, 0, 0, 0, 0
+gainian_idx, jianda_idx, lunshu_idx, idx = 0, 0, 0, 0
 FONT = ('Times New Roman', 20)
 
+
 def submit(self=None):
-    global u5idx, u6idx, u7idx, u8idx, idx
+    global gainian_idx, jianda_idx, lunshu_idx, idx
     q = question['text']
-    rightAnswer = u5_dict.get(q, 0)
+    rightAnswer = gainian_dict.get(q, 0)
     if not rightAnswer:
-        rightAnswer = u6_dict.get(q, 0)
+        rightAnswer = jianda_dict.get(q, 0)
     if not rightAnswer:
-        rightAnswer = u7_dict.get(q, 0)
-    if not rightAnswer:
-        rightAnswer = u8_dict.get(q, 0)
-    rightAnswer = rightAnswer.lower()
-    if rightAnswer == str(answer.get()).lower():
+        rightAnswer = lunshu_dict.get(q, 0)
+    if rightAnswer.replace(' ','\n') == str(answer.get(0.0, tk.END)).strip():
         msg.showinfo('提示', '你对了！')
         unit = scrollBar.get()
-        if unit == 'Unit5':
-            question['text'] = u5keys[u5idx]
-            u5idx += 1
-            if u5idx == 10:
-                u5idx = 0
-        elif unit == 'Unit6':
-            question['text'] = u6keys[u6idx]
-            u6idx += 1
-            if u6idx == 10:
-                u6idx = 0
-        elif unit == 'Unit7':
-            question['text'] = u7keys[u7idx]
-            u7idx += 1
-            if u7idx == 10:
-                u7idx = 0
-        elif unit == 'Unit8':
-            question['text'] = u8keys[u8idx]
-            u8idx += 1
-            if u8idx == 8:
-                u8idx = 0
+        if unit == '概念题':
+            question['text'] = gainian_keys[gainian_idx]
+            gainian_idx += 1
+            if gainian_idx == len(gainian_keys):
+                gainian_idx = 0
+        elif unit == '简答题':
+            question['text'] = jianda_keys[jianda_idx]
+            jianda_idx += 1
+            if jianda_idx == len(jianda_keys):
+                jianda_idx = 0
+        elif unit == '论述题':
+            question['text'] = lunshu_keys[lunshu_idx]
+            lunshu_idx += 1
+            if lunshu_idx == len(lunshu_keys):
+                lunshu_idx = 0
         elif unit == '乱序':
             question['text'] = keys[idx]
             idx += 1
-            if idx == 38:
+            if idx == len(gainian_keys) + len(jianda_keys) + len(lunshu_keys):
                 idx = 0
-        answer.delete(0, tk.END)
     else:
-        msg.showerror('你错了！', '正确答案是：' + str(rightAnswer))
-        answer.delete(0, tk.END)
+        msg.showerror('你错了！', '正确答案是：\n' + str(rightAnswer).replace(' ','\n'))
+    answer.delete(0.0, tk.END)
 
-
+print(len(gainian_keys) + len(jianda_keys) + len(lunshu_keys))
 # create form
 mainForm = tk.Tk()
 mainForm.resizable(0, 0)
-mainForm.title('愿世上没有大鹦鹉')
+mainForm.title('一起背军理（B卷专属）')
 
 scrollBar = ttk.Combobox(mainForm, width=78, font=FONT)
 scrollBar.grid(row=0, padx=5, pady=5)
-scrollBar['value'] = ('Unit5', 'Unit6', 'Unit7', 'Unit8', '乱序')
+scrollBar['value'] = ('概念题', '简答题', '论述题', '乱序')
 scrollBar.configure(state='readonly')
-scrollBar.set('Unit5')
+scrollBar.set('概念题')
 
 question = ttk.Label(mainForm, width=80, font=FONT)
 question.grid(row=1, padx=5, pady=5)
 
-question['text'] = u5keys[0]
+question['text'] = gainian_keys[0]
 
-answer = ttk.Entry(mainForm, width=80, font=FONT)
+answer = tk.Text(mainForm, width=80, height=5, font=FONT)
 answer.grid(row=2, padx=5, pady=5)
-answer.bind("<Return>", submit)
+answer.bind("<Delete>", submit)
 
 submitButton = tk.Button(mainForm, text='提交', command=submit, width=74, font=FONT)
 submitButton.grid(row=3, padx=5, pady=5)
 
 alert = ttk.Label(mainForm, width=80, font=FONT)
-alert['text'] = '注意：不区分大小写，但是不要打句号'
+alert['text'] = '注意：不要打句号。按键盘上的Delete提交。'
 alert.grid(row=4, padx=5, pady=5)
 
 mainForm.mainloop()

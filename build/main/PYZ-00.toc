@@ -1,4 +1,4 @@
-('E:\\学习资料集锦（大学）\\大二上学期\\大学英语5级 - 刘岩\\期末复习app\\build\\main\\PYZ-00.pyz',
+('E:\\学习资料集锦（大学）\\大二上学期\\期末复习app\\build\\main\\PYZ-00.pyz',
  [('os', 'd:\\program files\\python\\python39\\lib\\os.py', 'PYMODULE'),
   ('subprocess',
    'd:\\program files\\python\\python39\\lib\\subprocess.py',
