@@ -12,7 +12,7 @@ gainian_dict = {'积极防御': '是以积极的攻势行动，战胜进攻之�
                 '人民战争的正义性': '是指战争的政治目的是符合被压迫阶级和被压迫民族根本利益的，是推动历史前进和社会进步的',
                 '人民战争的群众性': '是指参加战争活动的人员较广泛，只要进行战争，各方都需要投入大量的人力、物力、财力',
                 '国防': '是国家为防备和抵抗侵略，制止武装倾覆，保卫国家的主权、统一、领土完整和安全所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动',
-                '国际战略力量': '是指在国际关系中能够独立地发挥作用，并对国际形势及国际战略的运用和发展具有巨大影响的国家或国家集团。',
+                '国际战略力量': '是指在国际关系中能够独立地发挥作用，并对国际形势及国际战略的运用和发展具有巨大影响的国家或国家集团',
                 '两极格局': '即两大战略力量之间的相互对立和相互斗争，对整个国际事务起着决定性影响的局面',
                 '信息化作战平台': '是指采用信息技术研制或改造的，供武器装备执行作战任务的处所、载体或者器具的总称',
                 '综合电子信息系统': '是按军队信息系统一体化原则和综合集成技术而构建的具有多种使命、多种功能的信息系统，是在战争中夺取信息优势、决策优势和全维优势的主要装备',
@@ -48,11 +48,16 @@ for key in lunshu_dict.keys():
 keys = copy.deepcopy(keys)
 random.shuffle(keys)
 gainian_idx, jianda_idx, lunshu_idx, idx = 0, 0, 0, 0
+right_count, wrong_count = 0, 0
 FONT = ('Times New Roman', 20)
 
 
+def renew_ui():
+    count['text'] = '已经背了%d个，其中正确%d个，错误%d个' % (right_count+wrong_count, right_count, wrong_count)
+
+
 def submit(self=None):
-    global gainian_idx, jianda_idx, lunshu_idx, idx
+    global gainian_idx, jianda_idx, lunshu_idx, idx, right_count, wrong_count
     q = question['text']
     rightAnswer = gainian_dict.get(q, 0)
     if not rightAnswer:
@@ -61,6 +66,7 @@ def submit(self=None):
         rightAnswer = lunshu_dict.get(q, 0)
     if rightAnswer.replace(' ','\n') == str(answer.get(0.0, tk.END)).strip():
         msg.showinfo('提示', '你对了！')
+        right_count += 1
         unit = scrollBar.get()
         if unit == '概念题':
             question['text'] = gainian_keys[gainian_idx]
@@ -84,7 +90,9 @@ def submit(self=None):
                 idx = 0
     else:
         msg.showerror('你错了！', '正确答案是：\n' + str(rightAnswer).replace(' ','\n'))
+        wrong_count += 1
     answer.delete(0.0, tk.END)
+    renew_ui()
 
 print(len(gainian_keys) + len(jianda_keys) + len(lunshu_keys))
 # create form
@@ -103,7 +111,7 @@ question.grid(row=1, padx=5, pady=5)
 
 question['text'] = gainian_keys[0]
 
-answer = tk.Text(mainForm, width=80, height=5, font=FONT)
+answer = tk.Text(mainForm, width=80, height=7, font=FONT)
 answer.grid(row=2, padx=5, pady=5)
 answer.bind("<Delete>", submit)
 
@@ -113,5 +121,9 @@ submitButton.grid(row=3, padx=5, pady=5)
 alert = ttk.Label(mainForm, width=80, font=FONT)
 alert['text'] = '注意：不要打句号。按键盘上的Delete提交。'
 alert.grid(row=4, padx=5, pady=5)
+
+count = ttk.Label(mainForm, width=80, font=FONT)
+count['text'] = '已经背了0个，其中正确0个，错误0个'
+count.grid(row=5, padx=5, pady=5)
 
 mainForm.mainloop()
